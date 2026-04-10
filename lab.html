@@ -1,0 +1,422 @@
+<!-- 
+ARQUIVO DE TESTES E EXEMPLOS
+Use este arquivo para testar novos efeitos antes de implementar nas páginas principais
+-->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚙️ LABORATORIO DE HORROR</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            color: #ccc;
+            font-family: 'Courier New', monospace;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #ff0055;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 3rem;
+            text-shadow: 0 0 20px #ff0055;
+        }
+
+        h2 {
+            color: #8800ff;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ff0055;
+            padding-bottom: 10px;
+        }
+
+        .example {
+            background: rgba(139,0,0,0.2);
+            border: 2px solid #8B0000;
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .code-block {
+            background: #1a1a1a;
+            border-left: 4px solid #00ff00;
+            padding: 15px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        .code-block code {
+            color: #00ff00;
+        }
+
+        .demo {
+            margin: 15px 0;
+            padding: 20px;
+            background: rgba(0,255,0,0.05);
+            border-radius: 5px;
+        }
+
+        .nav-back {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: #8B0000;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .nav-back:hover {
+            background: #ff0055;
+            box-shadow: 0 0 20px #ff0055;
+        }
+
+        .glitch-text {
+            font-size: 1.5rem;
+            color: #ff0055;
+            animation: glitch-demo 0.5s infinite;
+            text-shadow: 
+                -2px -2px 0 #00ff00,
+                2px 2px 0 #8800ff;
+        }
+
+        @keyframes glitch-demo {
+            0% { text-shadow: -2px -2px 0 #00ff00, 2px 2px 0 #8800ff; }
+            50% { text-shadow: 2px -2px 0 #8800ff, -2px 2px 0 #00ff00; }
+            100% { text-shadow: -2px -2px 0 #00ff00, 2px 2px 0 #8800ff; }
+        }
+
+        .pulse {
+            animation: pulse-demo 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse-demo {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        canvas {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 20px;
+            border-top: 2px solid #ff0055;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="horror-site.html" class="nav-back">← Voltar à Homepage</a>
+
+        <h1>⚙️ LABORATÓRIO DE HORROR</h1>
+        <p style="text-align: center; color: #ff0055; margin-bottom: 40px;">
+            Experimente novos efeitos e customize aqui antes de usar nas páginas principais
+        </p>
+
+        <!-- SEÇÃO 1: EFEITOS DE TEXTO -->
+        <div class="example">
+            <h2>🔤 EFEITOS DE TEXTO</h2>
+
+            <h3 style="color: #ff0055; margin: 20px 0 10px;">Glitch Text</h3>
+            <div class="glitch-text">TEXTO COM GLITCH</div>
+
+            <h3 style="color: #ff0055; margin: 20px 0 10px;">Pulse Text</h3>
+            <div class="pulse" style="font-size: 1.5rem; color: #00ff00;">
+                TEXTO PULSANTE
+            </div>
+
+            <h3 style="color: #ff0055; margin: 20px 0 10px;">Código CSS para Glitch:</h3>
+            <div class="code-block"><code>@keyframes glitch {
+  0% { text-shadow: -2px -2px 0 #00ff00, 2px 2px 0 #8800ff; }
+  50% { text-shadow: 2px -2px 0 #8800ff, -2px 2px 0 #00ff00; }
+  100% { text-shadow: -2px -2px 0 #00ff00, 2px 2px 0 #8800ff; }
+}</code></div>
+        </div>
+
+        <!-- SEÇÃO 2: BOTÕES -->
+        <div class="example">
+            <h2>🔴 ESTILOS DE BOTÃO</h2>
+
+            <div class="demo">
+                <button style="
+                    background: linear-gradient(135deg, #8B0000, #CC0000);
+                    color: #000;
+                    border: 2px solid #ff0055;
+                    padding: 12px 30px;
+                    font-size: 1rem;
+                    cursor: pointer;
+                    border-radius: 5px;
+                    transition: all 0.3s;
+                    box-shadow: 0 0 20px rgba(255,0,85,0.5);
+                " 
+                onmouseover="this.style.boxShadow='0 0 40px #ff0055'" 
+                onmouseout="this.style.boxShadow='0 0 20px rgba(255,0,85,0.5)'">
+                    BOTÃO COM GLOW
+                </button>
+            </div>
+
+            <h3 style="color: #ff0055; margin-top: 20px;">Código CSS:</h3>
+            <div class="code-block"><code>button {
+  background: linear-gradient(135deg, #8B0000, #CC0000);
+  color: #000;
+  border: 2px solid #ff0055;
+  padding: 12px 30px;
+  box-shadow: 0 0 20px rgba(255,0,85,0.5);
+  transition: all 0.3s;
+}
+
+button:hover {
+  box-shadow: 0 0 40px #ff0055;
+  transform: scale(1.05);
+}</code></div>
+        </div>
+
+        <!-- SEÇÃO 3: CORES E GRADIENTES -->
+        <div class="example">
+            <h2>🎨 PALETA DE CORES</h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 20px 0;">
+                <div style="
+                    background: #8B0000;
+                    padding: 20px;
+                    border-radius: 5px;
+                    text-align: center;
+                    color: #fff;
+                ">
+                    <strong>Blood</strong><br>
+                    #8B0000<br>
+                    rgb(139, 0, 0)
+                </div>
+
+                <div style="
+                    background: #CC0000;
+                    padding: 20px;
+                    border-radius: 5px;
+                    text-align: center;
+                    color: #000;
+                ">
+                    <strong>Blood Bright</strong><br>
+                    #CC0000<br>
+                    rgb(204, 0, 0)
+                </div>
+
+                <div style="
+                    background: #ff0055;
+                    padding: 20px;
+                    border-radius: 5px;
+                    text-align: center;
+                    color: #000;
+                ">
+                    <strong>Neon Red</strong><br>
+                    #ff0055<br>
+                    rgb(255, 0, 85)
+                </div>
+
+                <div style="
+                    background: #8800ff;
+                    padding: 20px;
+                    border-radius: 5px;
+                    text-align: center;
+                    color: #fff;
+                ">
+                    <strong>Neon Purple</strong><br>
+                    #8800ff<br>
+                    rgb(136, 0, 255)
+                </div>
+
+                <div style="
+                    background: #00ff00;
+                    padding: 20px;
+                    border-radius: 5px;
+                    text-align: center;
+                    color: #000;
+                ">
+                    <strong>Neon Green</strong><br>
+                    #00ff00<br>
+                    rgb(0, 255, 0)
+                </div>
+
+                <div style="
+                    background: #3D0000;
+                    padding: 20px;
+                    border-radius: 5px;
+                    text-align: center;
+                    color: #fff;
+                ">
+                    <strong>Blood Dark</strong><br>
+                    #3D0000<br>
+                    rgb(61, 0, 0)
+                </div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO 4: ANIMAÇÕES CSS -->
+        <div class="example">
+            <h2>✨ ANIMAÇÕES</h2>
+
+            <h3 style="color: #ff0055; margin: 20px 0 10px;">Fade In</h3>
+            <div class="code-block"><code>@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+elemento { animation: fadeIn 0.8s ease-out; }</code></div>
+
+            <h3 style="color: #ff0055; margin: 20px 0 10px;">Scale Pulse</h3>
+            <div class="code-block"><code>@keyframes scalePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+elemento { animation: scalePulse 2s ease-in-out infinite; }</code></div>
+
+            <h3 style="color: #ff0055; margin: 20px 0 10px;">Rotate</h3>
+            <div class="code-block"><code>@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+elemento { animation: rotate 3s linear infinite; }</code></div>
+        </div>
+
+        <!-- SEÇÃO 5: FILTROS CSS -->
+        <div class="example">
+            <h2>🎬 FILTROS</h2>
+
+            <div style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+                margin: 20px 0;
+            ">
+                <div style="
+                    background: linear-gradient(135deg, #8B0000, #CC0000);
+                    padding: 30px;
+                    text-align: center;
+                    border-radius: 5px;
+                    color: #fff;
+                    filter: blur(0px);
+                ">
+                    Blur(0)
+                </div>
+
+                <div style="
+                    background: linear-gradient(135deg, #8B0000, #CC0000);
+                    padding: 30px;
+                    text-align: center;
+                    border-radius: 5px;
+                    color: #fff;
+                    filter: blur(2px);
+                ">
+                    Blur(2px)
+                </div>
+
+                <div style="
+                    background: linear-gradient(135deg, #8B0000, #CC0000);
+                    padding: 30px;
+                    text-align: center;
+                    border-radius: 5px;
+                    color: #fff;
+                    filter: saturate(2);
+                ">
+                    Saturate(2)
+                </div>
+
+                <div style="
+                    background: linear-gradient(135deg, #8B0000, #CC0000);
+                    padding: 30px;
+                    text-align: center;
+                    border-radius: 5px;
+                    color: #fff;
+                    filter: brightness(1.5);
+                ">
+                    Brightness(1.5)
+                </div>
+            </div>
+
+            <h3 style="color: #ff0055; margin: 20px 0 10px;">Código CSS:</h3>
+            <div class="code-block"><code">/* Blur */
+elemento { filter: blur(2px); }
+
+/* Saturate */
+elemento { filter: saturate(2); }
+
+/* Brightness */
+elemento { filter: brightness(1.5); }
+
+/* Combine */
+elemento { filter: blur(1px) saturate(1.5) brightness(1.2); }</code></div>
+        </div>
+
+        <!-- SEÇÃO 6: COMO COMEÇAR -->
+        <div class="example">
+            <h2>🚀 PRÓXIMOS PASSOS</h2>
+
+            <h3 style="color: #ff0055; margin: 20px 0;">1. Editar Cores Globais</h3>
+            <p>Em `style.css`, `schedule.css` e `enter.css`, altere as variáveis CSS:</p>
+            <div class="code-block"><code>:root {
+  --blood: #8B0000;
+  --blood-bright: #CC0000;
+  --neon-red: #ff0055;
+  --neon-purple: #8800ff;
+  --neon-green: #00ff00;
+}</code></div>
+
+            <h3 style="color: #ff0055; margin: 20px 0;">2. Adicionar Novos Eventos</h3>
+            <p>Em `schedule.html`, dentro de `.events-list`:</p>
+            <div class="code-block"><code>&lt;div class="event"&gt;
+  &lt;span class="time"&gt;HH:MM&lt;/span&gt;
+  &lt;span class="event-name"&gt;Nome do Evento&lt;/span&gt;
+  &lt;span class="event-desc"&gt;Descrição&lt;/span&gt;
+&lt;/div&gt;</code></div>
+
+            <h3 style="color: #ff0055; margin: 20px 0;">3. Customizar Mensagens de Horror</h3>
+            <p>Em `enter.js`, procure por `messages[]` e edite as strings:</p>
+            <div class="code-block"><code">const messages = [
+  'Sua mensagem aqui',
+  'Outra mensagem de terror',
+  'Mais uma mensagem assustadora'
+];</code></div>
+
+            <h3 style="color: #ff0055; margin: 20px 0;">4. Adicionar Sons</h3>
+            <p>Em `enter.js`, descomente e customize a função `playScarySound()`</p>
+
+            <h3 style="color: #ff0055; margin: 20px 0;">5. Fazer Deploy</h3>
+            <p>Veja o arquivo `DEPLOY.md` para instruções completas</p>
+        </div>
+
+        <div class="footer">
+            <p>⚙️ Laboratório de Horror © 2026</p>
+            <p style="margin-top: 10px;">
+                <a href="horror-site.html" style="color: #ff0055; text-decoration: none;">Voltar</a> | 
+                <a href="schedule.html" style="color: #ff0055; text-decoration: none;">Agenda</a> | 
+                <a href="enter.html" style="color: #ff0055; text-decoration: none;">Entrar</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

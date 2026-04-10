@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📅 AGENDA DO TERROR 📅</title>
+    <link rel="stylesheet" href="schedule.css">
+</head>
+<body>
+    <!-- Background Effects -->
+    <canvas id="horror-canvas"></canvas>
+    <div id="cursor"></div>
+    <div id="vignette"></div>
+    <div id="scanlines"></div>
+    <div id="glitch-overlay"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="title-glitch" data-text="AGENDA DO TERROR">AGENDA DO TERROR</h1>
+            <p class="subtitle">☽ Seus últimos dias de liberdade ☾</p>
+            <div class="header-line"></div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="nav-tabs">
+            <button class="nav-btn active" data-tab="schedule">📅 CRONOGRAMA</button>
+            <button class="nav-btn" data-tab="location">📍 LOCAL</button>
+            <button class="nav-btn" data-tab="rules">⚠️ REGRAS</button>
+        </nav>
+
+        <!-- Schedule Tab -->
+        <div id="schedule" class="tab-content active">
+            <div class="event-days">
+                <div class="day-card">
+                    <div class="day-header">SEXTA-FEIRA</div>
+                    <div class="day-date">18 de Março, 2026</div>
+                    <div class="events-list">
+                        <div class="event">
+                            <span class="time">19:00</span>
+                            <span class="event-name">Abertura das Portais</span>
+                            <span class="event-desc">As almas começam a despertar...</span>
+                        </div>
+                        <div class="event">
+                            <span class="time">20:30</span>
+                            <span class="event-name">Primeira Maldição</span>
+                            <span class="event-desc">O ritual de sangue inicia</span>
+                        </div>
+                        <div class="event">
+                            <span class="time">22:00</span>
+                            <span class="event-name">O Sussurro Eterno</span>
+                            <span class="event-desc">Escute os gritos dos condenados</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-card">
+                    <div class="day-header">SÁBADO</div>
+                    <div class="day-date">19 de Março, 2026</div>
+                    <div class="events-list">
+                        <div class="event">
+                            <span class="time">18:00</span>
+                            <span class="event-name">Segunda Visão</span>
+                            <span class="event-desc">Você verá coisas que te transformarão</span>
+                        </div>
+                        <div class="event">
+                            <span class="time">20:00</span>
+                            <span class="event-name">A Dança da Perdição</span>
+                            <span class="event-desc">Dancem com os condenados</span>
+                        </div>
+                        <div class="event">
+                            <span class="time">23:00</span>
+                            <span class="event-name">Auge da Maldição</span>
+                            <span class="event-desc">O clímax da noite dos horrores</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-card">
+                    <div class="day-header">DOMINGO</div>
+                    <div class="day-date">20 de Março, 2026</div>
+                    <div class="events-list">
+                        <div class="event">
+                            <span class="time">17:00</span>
+                            <span class="event-name">O Encerramento</span>
+                            <span class="event-desc">Retorno do que ainda resta</span>
+                        </div>
+                        <div class="event">
+                            <span class="time">19:00</span>
+                            <span class="event-name">Reflexão na Escuridão</span>
+                            <span class="event-desc">Aceite seu novo destino</span>
+                        </div>
+                        <div class="event">
+                            <span class="time">21:00</span>
+                            <span class="event-name">Despedida Eterna</span>
+                            <span class="event-desc">Até a próxima maldição...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Location Tab -->
+        <div id="location" class="tab-content">
+            <div class="location-info">
+                <h2>📍 LOCAL DE PERDIÇÃO</h2>
+                <div class="location-card">
+                    <h3>O Santuário da Escuridão</h3>
+                    <p>📍 Rua das Almas Perdidas, 666</p>
+                    <p>Cidade: Entre a Realidade e o Abismo</p>
+                    <p>CEP: 66666-666</p>
+                    <div class="map-placeholder">
+                        <div class="glitch-text">MAPA INDISPONÍVEL</div>
+                        <p>O caminho só será revelado aos escolhidos...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rules Tab -->
+        <div id="rules" class="tab-content">
+            <div class="rules-info">
+                <h2>⚠️ REGRAS DE SOBREVIVÊNCIA</h2>
+                <div class="rules-list">
+                    <div class="rule-item">
+                        <span class="rule-number">1</span>
+                        <div class="rule-content">
+                            <h4>Não Tente Fugir</h4>
+                            <p>Uma vez dentro, você está marcado. Tentar sair só piora as coisas.</p>
+                        </div>
+                    </div>
+                    <div class="rule-item">
+                        <span class="rule-number">2</span>
+                        <div class="rule-content">
+                            <h4>Mantenha os Olhos Abertos</h4>
+                            <p>Fechar os olhos é proibido. Ele está observando.</p>
+                        </div>
+                    </div>
+                    <div class="rule-item">
+                        <span class="rule-number">3</span>
+                        <div class="rule-content">
+                            <h4>Não Seja Silencioso</h4>
+                            <p>Seus gritos são música. Quanto mais você grita, mais eles vêm.</p>
+                        </div>
+                    </div>
+                    <div class="rule-item">
+                        <span class="rule-number">4</span>
+                        <div class="rule-content">
+                            <h4>Não Confie em Ninguém</h4>
+                            <p>Seus companheiros não são mais humanos. Eles estão possuídos.</p>
+                        </div>
+                    </div>
+                    <div class="rule-item">
+                        <span class="rule-number">5</span>
+                        <div class="rule-content">
+                            <h4>Cumpra o Ritual</h4>
+                            <p>Cada tarefa deve ser cumprida ou o destino será sellado.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="btn-horror" onclick="window.location.href='horror-site.html'">
+                ⬅️ VOLTAR À MALDIÇÃO
+            </button>
+            <button class="btn-enter" onclick="window.location.href='enter.html'">
+                ➡️ ENTRAR NA ESCURIDÃO ☠
+            </button>
+        </div>
+
+        <footer class="footer">
+            ☠ AGENDA DO TERROR © 2026 — A morte espera por você ☠
+        </footer>
+    </div>
+
+    <script src="schedule.js"></script>
+</body>
+</html>

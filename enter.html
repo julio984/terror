@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>☠ VOCÊ ENTROU ☠</title>
+    <link rel="stylesheet" href="enter.css">
+</head>
+<body>
+    <!-- Ambient Sounds (disabled by default, user can enable) -->
+    <audio id="ambient-sound" preload="none"></audio>
+    <audio id="scream-sound" preload="none"></audio>
+    <audio id="heartbeat" preload="none"></audio>
+
+    <!-- Multiple Canvas Layers for Effects -->
+    <canvas id="main-canvas"></canvas>
+    <canvas id="distortion-canvas"></canvas>
+    <canvas id="particles-canvas"></canvas>
+    
+    <!-- Custom Cursor -->
+    <div id="cursor"></div>
+    
+    <!-- Screen Effects -->
+    <div id="vignette"></div>
+    <div id="scanlines"></div>
+    <div id="glitch-overlay"></div>
+    <div id="chromatic"></div>
+    <div id="flash"></div>
+    <div id="blood-splatter"></div>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <!-- Psychological Horror Text -->
+        <div class="horror-text-container" id="horror-text">
+            <div class="text-line" style="animation-delay: 0s">Bem-vindo...</div>
+            <div class="text-line" style="animation-delay: 0.5s">Você não deveria estar aqui</div>
+            <div class="text-line" style="animation-delay: 1s">Mas agora está</div>
+            <div class="text-line" style="animation-delay: 1.5s">E não pode sair</div>
+        </div>
+
+        <!-- Beating Heart Display -->
+        <div class="heart-display">
+            <div class="heart" id="heart-beat">❤️</div>
+            <div class="heart-bpm" id="bpm">BPM: 120</div>
+        </div>
+
+        <!-- Eyes Following Cursor -->
+        <div class="eyes-container">
+            <div class="eye">
+                <div class="pupil"></div>
+            </div>
+            <div class="eye">
+                <div class="pupil"></div>
+            </div>
+        </div>
+
+        <!-- Distorted Mirror -->
+        <div class="mirror-section">
+            <canvas id="mirror-canvas" width="400" height="300"></canvas>
+            <p class="mirror-text">Você consegue se ver?</p>
+        </div>
+
+        <!-- Scrolling Doom Text -->
+        <div class="doom-text">
+            <div class="doom-line">ELE ESTÁ TE VENDO</div>
+            <div class="doom-line">ELE ESTÁ TE OUINDO</div>
+            <div class="doom-line">ELE ESTÁ TE TOCANDO</div>
+            <div class="doom-line">ELE ESTÁ AQUI</div>
+            <div class="doom-line">ELE ESTÁ AQUI</div>
+            <div class="doom-line">ELE ESTÁ AQUI</div>
+        </div>
+
+        <!-- Glitched Interface -->
+        <div class="interface">
+            <div class="screen" id="main-screen">
+                <div class="screen-content">
+                    <div class="loading-bar">
+                        <div class="loading-fill" id="load-fill"></div>
+                    </div>
+                    <p class="loading-text" id="load-text">Carregando seu destino...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reality Distortion -->
+        <div class="reality-check">
+            <button class="btn-escape" onclick="tryEscape()">
+                TENTAR ESCAPAR (INÚTIL)
+            </button>
+        </div>
+    </div>
+
+    <!-- Hidden Messages (revealed gradually) -->
+    <div id="hidden-messages" style="display: none;">
+        <div class="message">Você clicou em "ENTRE SE OUSAR"...</div>
+        <div class="message">Você REALMENTE achou que teria um final feliz?</div>
+        <div class="message">A maldição já começou</div>
+        <div class="message">Você sente isso?</div>
+        <div class="message">A presença ao seu redor?</div>
+    </div>
+
+    <script src="enter.js"></script>
+</body>
+</html>

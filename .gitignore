@@ -1,0 +1,34 @@
+# Git Ignore - MALDIÇÃO Project
+
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Build
+dist/
+build/
+*.min.js
+*.min.css
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+console.log
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Temporary
+temp/
+tmp/
+*.temp

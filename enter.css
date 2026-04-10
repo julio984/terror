@@ -1,0 +1,620 @@
+@import url('https://fonts.googleapis.com/css2?family=Creepster&family=Special+Elite&display=swap');
+
+:root {
+  --blood: #4a0000;
+  --blood-bright: #8B0000;
+  --blood-dark: #1a0000;
+  --flesh: #0d0000;
+  --neon-red: #cc0033;
+  --neon-purple: #550088;
+  --dark-void: #000000;
+  --neon-green: #00aa00;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #000000;
+  color: #777;
+  font-family: 'Special Elite', serif;
+  overflow: hidden;
+  cursor: none;
+  min-height: 100vh;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Canvas Layers */
+#main-canvas,
+#distortion-canvas,
+#particles-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Custom Cursor */
+#cursor {
+  position: fixed;
+  width: 20px;
+  height: 30px;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -10%);
+}
+
+#cursor::before {
+  content: '';
+  display: block;
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, #ff2200 40%, #8B0000 100%);
+  border-radius: 50% 50% 40% 40%;
+  margin: 0 auto;
+  box-shadow: 
+    0 0 12px #ff0000dd,
+    0 0 25px #ff000077,
+    0 0 40px #8B000055,
+    inset 0 0 5px rgba(255,255,255,0.3);
+  animation: cursor-throb 0.8s ease-in-out infinite;
+}
+
+@keyframes cursor-throb {
+  0%, 100% { 
+    transform: scale(1);
+    box-shadow: 
+      0 0 12px #ff0000dd,
+      0 0 25px #ff000077,
+      0 0 40px #8B000055;
+  }
+  50% { 
+    transform: scale(1.5);
+    box-shadow: 
+      0 0 25px #ff0000ff,
+      0 0 50px #ff0000cc,
+      0 0 80px #8B0000aa;
+  }
+}
+
+/* Screen Effects */
+#vignette {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  box-shadow: inset 0 0 300px rgba(0,0,0,0.9);
+}
+
+#scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,0.2),
+    rgba(0,0,0,0.2) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  animation: scanlines-move 6s linear infinite;
+}
+
+@keyframes scanlines-move {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(8px); }
+}
+
+#glitch-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0;
+  animation: random-glitch 4s infinite;
+}
+
+@keyframes random-glitch {
+  0% { opacity: 0; }
+  2% { opacity: 0.2; }
+  3% { opacity: 0; }
+  5% { opacity: 0.15; }
+  7% { opacity: 0; }
+  90% { opacity: 0; }
+  92% { opacity: 0.15; }
+  100% { opacity: 0; }
+}
+
+#chromatic {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+  animation: chromatic-aberration 3s infinite;
+}
+
+@keyframes chromatic-aberration {
+  0%, 100% { opacity: 0; filter: none; }
+  50% { opacity: 0.1; }
+}
+
+#flash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  pointer-events: none;
+  z-index: 6;
+  opacity: 0;
+}
+
+#blood-splatter {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  background-image: 
+    radial-gradient(circle at 30% 40%, rgba(139,0,0,0.4) 0%, transparent 40%),
+    radial-gradient(circle at 70% 60%, rgba(50,0,0,0.3) 0%, transparent 35%),
+    radial-gradient(circle at 50% 50%, rgba(255,0,0,0.1) 0%, transparent 50%);
+}
+
+/* Content Wrapper */
+.content-wrapper {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Horror Text Container */
+.horror-text-container {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 20;
+}
+
+.text-line {
+  font-family: 'Creepster', cursive;
+  font-size: 2.5rem;
+  color: var(--neon-red);
+  margin: 15px 0;
+  text-shadow: 
+    0 0 15px var(--blood-bright),
+    -2px -2px 0 var(--neon-purple),
+    2px 2px 0 var(--neon-green);
+  animation: text-glitch 1s infinite;
+  opacity: 0;
+  animation: text-fade-in 1s ease-out forwards;
+}
+
+@keyframes text-fade-in {
+  from { 
+    opacity: 0;
+    transform: translateY(-20px) scaleY(0.5);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+@keyframes text-glitch {
+  0% {
+    text-shadow: 
+      0 0 15px var(--blood-bright),
+      -2px -2px 0 var(--neon-purple);
+  }
+  25% {
+    text-shadow: 
+      0 0 15px var(--neon-red),
+      2px 2px 0 var(--neon-green);
+  }
+  50% {
+    text-shadow: 
+      0 0 15px var(--blood-bright),
+      -2px -2px 0 var(--neon-purple);
+  }
+  75% {
+    text-shadow: 
+      0 0 20px var(--neon-red),
+      2px 2px 0 var(--neon-green);
+  }
+  100% {
+    text-shadow: 
+      0 0 15px var(--blood-bright),
+      -2px -2px 0 var(--neon-purple);
+  }
+}
+
+/* Heart Display */
+.heart-display {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  z-index: 30;
+  text-align: center;
+  animation: heart-zoom 1s ease-out infinite alternate;
+}
+
+.heart {
+  font-size: 4rem;
+  animation: heartbeat 0.6s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.2); }
+  50% { transform: scale(1); }
+}
+
+.heart-bpm {
+  color: var(--neon-red);
+  font-size: 0.9rem;
+  font-family: monospace;
+  margin-top: 5px;
+  text-shadow: 0 0 10px var(--blood-bright);
+}
+
+/* Eyes Following */
+.eyes-container {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  display: flex;
+  gap: 50px;
+  z-index: 30;
+}
+
+.eye {
+  width: 80px;
+  height: 80px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px var(--blood-bright);
+  animation: eye-twitch 0.8s ease-in-out infinite;
+}
+
+.pupil {
+  width: 30px;
+  height: 30px;
+  background: var(--blood);
+  border-radius: 50%;
+  position: relative;
+}
+
+.pupil::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+  top: 5px;
+  left: 5px;
+}
+
+@keyframes eye-twitch {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.1); }
+  50% { transform: scale(0.9); }
+  75% { transform: scale(1.1); }
+}
+
+/* Mirror Section */
+.mirror-section {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 25;
+}
+
+#mirror-canvas {
+  border: 5px solid var(--blood-bright);
+  box-shadow: 
+    0 0 30px var(--neon-red),
+    inset 0 0 30px rgba(139,0,0,0.5);
+  border-radius: 10px;
+  animation: mirror-flicker 2s infinite;
+}
+
+@keyframes mirror-flicker {
+  0%, 100% { opacity: 1; }
+  5% { opacity: 0.3; }
+  10% { opacity: 1; }
+  85% { opacity: 1; }
+  90% { opacity: 0.2; }
+  95% { opacity: 1; }
+}
+
+.mirror-text {
+  color: var(--neon-red);
+  font-family: 'Creepster', cursive;
+  font-size: 1.5rem;
+  margin-top: 20px;
+  text-shadow: 0 0 15px var(--blood-bright);
+  animation: mirror-text-glow 2s ease-in-out infinite;
+}
+
+@keyframes mirror-text-glow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Doom Text Scrolling */
+.doom-text {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 11;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  opacity: 0;
+  animation: doom-text-fade 15s ease-in-out infinite;
+}
+
+@keyframes doom-text-fade {
+  0%, 5% { opacity: 0; }
+  10% { opacity: 1; }
+  85% { opacity: 1; }
+  90%, 100% { opacity: 0; }
+}
+
+.doom-line {
+  color: var(--neon-red);
+  font-family: 'Creepster', cursive;
+  font-size: 3rem;
+  text-shadow: 
+    0 0 20px var(--blood-bright),
+    0 0 40px var(--neon-purple);
+  transform: skew(-20deg);
+  letter-spacing: 10px;
+  animation: doom-scroll 15s linear infinite;
+}
+
+@keyframes doom-scroll {
+  0% { transform: translateY(100vh) skew(-20deg); opacity: 0; }
+  5% { opacity: 1; }
+  50% { opacity: 1; }
+  95% { opacity: 0; }
+  100% { transform: translateY(-100vh) skew(-20deg); opacity: 0; }
+}
+
+/* Interface Screen */
+.interface {
+  position: fixed;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 25;
+  width: 90%;
+  max-width: 500px;
+}
+
+.screen {
+  background: linear-gradient(135deg, rgba(0,0,0,0.9), rgba(50,0,0,0.7));
+  border: 3px solid var(--neon-green);
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 
+    0 0 30px var(--neon-green),
+    inset 0 0 20px rgba(0,255,0,0.1);
+  animation: screen-glow 1.5s ease-in-out infinite;
+}
+
+@keyframes screen-glow {
+  0%, 100% { box-shadow: 
+    0 0 30px var(--neon-green),
+    inset 0 0 20px rgba(0,255,0,0.1);
+  }
+  50% { box-shadow: 
+    0 0 50px var(--neon-green),
+    inset 0 0 40px rgba(0,255,0,0.2);
+  }
+}
+
+.screen-content {
+  text-align: center;
+}
+
+.loading-bar {
+  width: 100%;
+  height: 30px;
+  background: #000;
+  border: 2px solid var(--neon-green);
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.loading-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-green), var(--neon-red));
+  width: 0%;
+  animation: load 8s ease-in-out forwards;
+}
+
+@keyframes load {
+  0% { width: 0%; }
+  50% { width: 50%; }
+  100% { width: 100%; }
+}
+
+.loading-text {
+  color: var(--neon-green);
+  font-family: monospace;
+  font-size: 0.9rem;
+  text-shadow: 0 0 10px var(--neon-green);
+  animation: text-type 8s steps(50, end) forwards;
+}
+
+@keyframes text-type {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+/* Escape Button */
+.reality-check {
+  position: fixed;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 26;
+  margin-top: 150px;
+}
+
+.btn-escape {
+  background: linear-gradient(135deg, var(--neon-purple), var(--blood-bright));
+  color: #fff;
+  border: 3px solid var(--neon-red);
+  padding: 15px 40px;
+  font-size: 1.1rem;
+  font-family: 'Creepster', cursive;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 30px var(--neon-red);
+  animation: button-pulse 1s ease-in-out infinite;
+}
+
+@keyframes button-pulse {
+  0%, 100% { 
+    box-shadow: 0 0 30px var(--neon-red);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 0 0 60px var(--neon-red), 0 0 100px var(--blood-bright);
+    transform: scale(1.05);
+  }
+}
+
+.btn-escape::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.2);
+  transition: left 0.3s;
+  z-index: -1;
+}
+
+.btn-escape:hover::before {
+  left: 0;
+}
+
+.btn-escape:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 100px var(--neon-red), 0 0 150px var(--blood-bright);
+}
+
+/* Hidden Messages */
+#hidden-messages {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+  text-align: center;
+  pointer-events: none;
+}
+
+.message {
+  color: var(--neon-red);
+  font-family: 'Creepster', cursive;
+  font-size: 2rem;
+  margin: 20px 0;
+  text-shadow: 0 0 20px var(--blood-bright);
+  opacity: 0;
+  animation: message-appear 3s ease-in-out forwards;
+}
+
+@keyframes message-appear {
+  0% { opacity: 0; transform: translateY(-50px) scaleY(0); }
+  20% { opacity: 1; transform: translateY(0) scaleY(1); }
+  80% { opacity: 1; transform: translateY(0) scaleY(1); }
+  100% { opacity: 0; transform: translateY(50px) scaleY(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .text-line {
+    font-size: 1.5rem;
+  }
+
+  .eye {
+    width: 60px;
+    height: 60px;
+  }
+
+  #mirror-canvas {
+    width: 300px;
+    height: 225px;
+  }
+
+  .doom-line {
+    font-size: 1.8rem;
+    letter-spacing: 5px;
+  }
+
+  .btn-escape {
+    padding: 12px 30px;
+    font-size: 0.9rem;
+  }
+}
